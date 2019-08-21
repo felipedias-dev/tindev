@@ -10,22 +10,6 @@ import './Main.css';
 
 export default function Main({ match }) {
   const [users, setUsers] = useState([]);
-
-  async function handleLike(id) {
-    await api.post(`/devs/${id}/likes`, null, {
-      headers: { user: match.params.id }
-    });
-
-    setUsers(users.filter(user => user._id !== id));
-  }
-  
-  async function handleDislike(id) {
-    await api.post(`/devs/${id}/dislikes`, null, {
-      headers: { user: match.params.id }
-    });
-
-    setUsers(users.filter(user => user._id !== id));
-  }
   
   useEffect(() => {
     async function loadUsers() {
@@ -40,6 +24,22 @@ export default function Main({ match }) {
 
     loadUsers();
   }, [match.params.id]);
+  
+  async function handleLike(id) {
+    await api.post(`/devs/${id}/likes`, null, {
+      headers: { user: match.params.id }
+    });
+
+    setUsers(users.filter(user => user._id !== id));
+  }
+  
+  async function handleDislike(id) {
+    await api.post(`/devs/${id}/dislikes`, null, {
+      headers: { user: match.params.id }
+    });
+
+    setUsers(users.filter(user => user._id !== id));
+  } 
 
   return(
     <div className="main-container">
